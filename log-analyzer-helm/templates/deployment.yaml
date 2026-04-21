@@ -29,13 +29,13 @@ spec:
               value: {{ .Values.candidateLabels | toJson | quote }}
           readinessProbe:
             httpGet:
-              path: /healthz
+              path: /health
               port: {{ .Values.service.targetPort }}
             initialDelaySeconds: 10
             periodSeconds: 5
           livenessProbe:
             httpGet:
-              path: /healthz
+              path: /health
               port: {{ .Values.service.targetPort }}
             initialDelaySeconds: 15
             periodSeconds: 10
