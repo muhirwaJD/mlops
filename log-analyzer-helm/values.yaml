@@ -20,3 +20,4 @@ candidateLabels:
   - image_error
   - node_not_ready
   - pod_eviction
+  - disk_pressure
