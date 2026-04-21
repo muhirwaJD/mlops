@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "log-analyzer.fullname" . }}
+  labels:
+    app: {{ include "log-analyzer.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "log-analyzer.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "log-analyzer.fullname" . }}
+      annotations:
+        # Triggers a rolling update whenever candidateLabels change in values.yaml,
+        # even if the image tag stays the same — the core GitOps demo mechanism.
+        checksum/candidate-labels: {{ .Values.candidateLabels | toJson | sha256sum }}
+    spec:
+      containers:
+        - name: log-analyzer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+          env:
+            - name: CANDIDATE_LABELS
+              value: {{ .Values.candidateLabels | toJson | quote }}
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.service.targetPort }}
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.service.targetPort }}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"

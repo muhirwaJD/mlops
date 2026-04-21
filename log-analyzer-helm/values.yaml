@@ -1,0 +1,22 @@
+image:
+  repository: log-analyzer
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+# ── ML Engineer zone ─────────────────────────────────────────────────────────
+# Edit ONLY this list to change inference labels.
+# ArgoCD detects this change and rolls out updated pods automatically.
+# No image rebuild. No infrastructure code change. Just Git.
+candidateLabels:
+  - oom_kill
+  - crashloop
+  - image_error
+  - node_not_ready
+  - pod_eviction
