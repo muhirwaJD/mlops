@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+
+# Python virtual environment
+mlops/
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# HuggingFace model cache
+.cache/
+
+# Helm & ArgoCD — not needed inside the image
+log-analyzer-helm/
+argocd/
+
+# OS & IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Claude Code internal
+.claude/
+
+# Docs
+README.md
