@@ -6,9 +6,10 @@ image:
 replicaCount: 1
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
   targetPort: 8000
+  nodePort: 30800
 
 # ── ML Engineer zone ─────────────────────────────────────────────────────────
 # Edit ONLY this list to change inference labels.
@@ -24,3 +25,5 @@ candidateLabels:
 
 prometheus:
   enabled: true
+  serviceType: NodePort
+  nodePort: 30900
