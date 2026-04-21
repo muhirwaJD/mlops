@@ -1,5 +1,5 @@
 image:
-  repository: log-analyzer
+  repository: muhirwajd/log-analyzer
   tag: "latest"
   pullPolicy: IfNotPresent
 
