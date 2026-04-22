@@ -72,6 +72,22 @@ curl -X POST http://localhost:8000/analyze \
   -H "Content-Type: application/json" \
   -d '{"log": "OOMKilled: container exceeded memory limit of 512Mi"}'
 
+curl -X POST http://localhost:8000/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"log": "Back-off restarting failed container myapp in pod myapp-7d6f"}'
+
+curl -X POST http://localhost:8000/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"log": "Failed to pull image myrepo/myapp:v2: 401 Unauthorized"}'
+
+curl -X POST http://localhost:8000/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"log": "0/3 nodes available: 3 node(s) had taint node.kubernetes.io/not-ready"}'
+
+curl -X POST http://localhost:8000/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"log": "The node was low on memory. Pod was evicted due to resource pressure"}'
+
 # 5. Check metrics
 open http://localhost:8000/metrics
 
