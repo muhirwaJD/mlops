@@ -19,8 +19,9 @@ candidateLabels:
   - oom_kill
   - crashloop
   - image_error
-  - node_not_ready
+  - node_error
   - pod_eviction
+  - disk_pressure
 
 prometheus:
   enabled: true
